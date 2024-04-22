@@ -32,7 +32,7 @@ import java.util.Map;
 
 /**
 * @author: Wanghaonan @戏人看戏
-* @description: 实现回调接口
+* @description: 实现回调接口，和获取支付信息接口和查询订单接口，更多的使用案例可以看test文件下的测试用例
 * @create: 2024/4/21 18:42
 */
 @RestController
