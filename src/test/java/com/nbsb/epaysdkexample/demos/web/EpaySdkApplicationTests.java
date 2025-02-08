@@ -1,4 +1,4 @@
-package com.nbsb.epaysdk;
+package com.nbsb.epaysdkexample.demos.web;
 
 import com.alibaba.fastjson.JSON;
 import com.nbsb.epaysdk.api.EPayFactory;
@@ -10,9 +10,10 @@ import com.nbsb.epaysdk.api.entity.request.Query;
 import com.nbsb.epaysdk.epaybase.enumeration.PayType;
 import com.nbsb.epaysdk.epaybase.enumeration.PaymentMethod;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+import java.util.ArrayList;
+import java.util.HashMap;
+
 class EpaySdkApplicationTests {
 
     @Test
@@ -62,4 +63,5 @@ class EpaySdkApplicationTests {
         MapiResponse mapi = ePay.mapi(cmd);
         System.out.println(JSON.toJSONString(mapi));
     }
+
 }

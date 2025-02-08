@@ -20,6 +20,7 @@ import com.alibaba.fastjson.JSON;
 import com.nbsb.epaysdk.api.EPayFactory;
 import com.nbsb.epaysdk.api.EPayInterface;
 import com.nbsb.epaysdk.api.Impl.EPayMZF;
+import com.nbsb.epaysdk.api.Impl.EPayYZF;
 import com.nbsb.epaysdk.api.entity.reponse.MapiResponse;
 import com.nbsb.epaysdk.api.entity.request.GetQRCmd;
 import com.nbsb.epaysdk.epaybase.enumeration.PayType;
@@ -42,6 +43,7 @@ public class BasicController  implements EPayInterface {
     @GetMapping("/pay/notify/")
     @Override
     public String onPayResult(@RequestParam Map<String, String> params) {
+        System.out.println("支付成功回调");
         // 打印所有传入的GET参数
         params.forEach((key, value) -> logger.info("GET parameter - {}: {}", key, value));
         // 验证签名！必须验证！如果你不想让你自己被盗刷的话（别人直接请求你就保存支付成功状态了）验证方法在SignUtil类中有，可以直接使用 SignUtil.map2Md5()
@@ -51,15 +53,13 @@ public class BasicController  implements EPayInterface {
         return null;
     }
     @GetMapping("/pay/get/")
-    //这里以码支付获取参数为例
     public Object executePay() {
         EPayFactory ePayFactory = new EPayFactory();
-        //获取码支付信息
-        EPayMZF ePay = (EPayMZF) ePayFactory.create(PayType.MZF);
+        EPayYZF ePay = (EPayYZF) ePayFactory.create(PayType.YZF);
         //这里是模拟的数据，可以根据自己实际进行填写，更多案例可以看项目 epay-sdk-example测试用例中的内容
-        GetQRCmd cmd = new GetQRCmd("测试商品名称","20214014211111173712331","0.1",
+        GetQRCmd cmd = new GetQRCmd("测试商品名称","20214014222111173712777","1",
                 PaymentMethod.ALIPAY,
-                "https://baidu1.com/","https://baidu1.com/");
+                "http://2j2s8a.natappfree.cc/pay/notify/","http://2j2s8a.natappfree.cc/pay/notify/");
         MapiResponse mapi = ePay.mapi(cmd);
         System.out.println(JSON.toJSONString(mapi));
         return mapi;
@@ -67,7 +67,7 @@ public class BasicController  implements EPayInterface {
     @GetMapping("/pay/queryOrder/")
     //这里以码支付获取参数为例
     public Object queryOrder() {
-        GetQRCmd cmd = new GetQRCmd("测试商品名称","20214014211111173712331","0.1",
+        GetQRCmd cmd = new GetQRCmd("测试商品名称","20214014211111173712331","1",
                 PaymentMethod.ALIPAY,
                 "https://baidu1.com/","https://baidu1.com/");
         EPayMZF ePayMZF = new EPayMZF();
